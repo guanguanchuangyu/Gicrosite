@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,13 +12,17 @@ namespace Gicrosite.EventBuses
     public abstract class EventBusBase : IEventBus
     {
         private readonly IServiceProvider _serviceProvider;
-
+        /// <summary>
+        /// 定义线程安全集合
+        /// </summary>
+        private readonly ConcurrentDictionary<Type, List<IEventHandler>> _handlers;
 
         public EventBusBase(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }
 
+        #region Implementation of IEventPublisher
         public void Publish<TEventData>(TEventData eventData, bool wait = true) where TEventData : IEventData
         {
             throw new NotImplementedException();
@@ -56,14 +61,15 @@ namespace Gicrosite.EventBuses
         public Task PublishAsync(Type eventType, object eventSource, IEventData eventData, bool wait = true)
         {
             throw new NotImplementedException();
-        }
+        } 
+        #endregion
 
         #region Implementation of IEventSubscriber
         public void Subscribe<TEventData, TEventHandler>()
             where TEventData : IEventData
             where TEventHandler : IEventHandler, new()
         {
-            throw new NotImplementedException();
+            
         }
 
         public void Subscribe<TEventData>(Action<TEventData> action) where TEventData : IEventData
