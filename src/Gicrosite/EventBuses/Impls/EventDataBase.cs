@@ -17,7 +17,7 @@ namespace Gicrosite.EventBuses
         /// <summary>
         /// 事件源
         /// </summary>
-        public object DataSource { get; set; }
+        public object EventSource { get; set; }
         /// <summary>
         /// 初始化一个<see cref="EventDataBase"/>类型的新实例
         /// </summary>

@@ -13,6 +13,6 @@ namespace Gicrosite.EventBuses
         /// <summary>
         /// 事件对象
         /// </summary>
-        public object DataSource { get; set; }
+        public object EventSource { get; set; }
     }
 }
