@@ -15,12 +15,7 @@ namespace Gicrosite.EventBuses
         /// <typeparam name="TEventData">事件数据类型</typeparam>
         /// <typeparam name="TEventHandler">事件处理器类型</typeparam>
         void Subscribe<TEventData, TEventHandler>() where TEventData : IEventData where TEventHandler : IEventHandler, new();
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TEventData">事件数据类型</typeparam>
-        /// <param name="action">事件处理委托</param>
-        void Subscribe<TEventData>(Action<TEventData> action) where TEventData : IEventData;
+        
         /// <summary>
         /// 订阅指定事件数据的事件处理对象
         /// </summary>
@@ -38,12 +33,7 @@ namespace Gicrosite.EventBuses
         /// </summary>
         /// <param name="eventHandlerTypes">事件处理器类型集合</param>
         void SubscribeAll(Type[] eventHandlerTypes);
-        /// <summary>
-        /// 取消订阅指定事件数据的事件处理委托
-        /// </summary>
-        /// <typeparam name="TEventData">事件数据类型</typeparam>
-        /// <param name="action">事件处理委托</param>
-        void Unsubscribe<TEventData>(Action<TEventData> action) where TEventData : IEventData;
+
         /// <summary>
         /// 取消订阅指定事件数据的事件处理对象
         /// </summary>

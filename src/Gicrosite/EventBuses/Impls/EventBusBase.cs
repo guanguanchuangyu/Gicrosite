@@ -138,13 +138,13 @@ namespace Gicrosite.EventBuses
             }
             if (wait)
             {
-                Run(eventHandler, handler, eventType, eventData);
+                Run(handler, eventType, eventData);
             }
             else
             {
                 Task.Run(() =>
                 {
-                    Run(eventHandler, handler, eventType, eventData);
+                    Run(handler, eventType, eventData);
                 });
             }
         }
@@ -175,7 +175,7 @@ namespace Gicrosite.EventBuses
             return Task.FromResult(0);
         }
 
-        private void Run(IEventHandler eventHandler, IEventHandler handler, Type eventType, IEventData eventData)
+        private void Run(IEventHandler handler, Type eventType, IEventData eventData)
         {
             try
             {
@@ -209,14 +209,6 @@ namespace Gicrosite.EventBuses
             Subscribe<TEventData>((IEventHandler)Activator.CreateInstance(typeof(TEventHandler)));
         }
 
-        public void Subscribe<TEventData>(Action<TEventData> action) where TEventData : IEventData
-        {
-            Check.NotNull(action, nameof(action));
-
-            IEventHandler eventHandler = new ActionEventHandler<TEventData>(action);
-            Subscribe<TEventData>(eventHandler);
-        }
-
         public void Subscribe<TEventData>(IEventHandler eventHandler) where TEventData : IEventData
         {
             Check.NotNull(eventHandler, nameof(eventHandler));
@@ -244,13 +236,6 @@ namespace Gicrosite.EventBuses
             Register(eventHandlerTypes);
         }
 
-        public void Unsubscribe<TEventData>(Action<TEventData> action) where TEventData : IEventData
-        {
-            Check.NotNull(action, nameof(action));
-
-            IEventHandler eventHandler = new ActionEventHandler<TEventData>(action);//单例对象
-            _handlers[typeof(TEventData)].Remove(eventHandler);
-        }
 
         public void Unsubscribe<TEventData>(IEventHandler<TEventData> eventHandler) where TEventData : IEventData
         {
