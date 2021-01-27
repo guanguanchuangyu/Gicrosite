@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Gicrosite": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false
+    }
+  }
+}
