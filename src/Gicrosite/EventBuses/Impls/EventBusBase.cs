@@ -73,7 +73,7 @@ namespace Gicrosite.EventBuses
 
         public virtual void Publish(Type eventType, object eventSource, IEventData eventData, bool wait = true)
         {
-            eventData.EventSource = eventData.EventSource ?? eventSource;
+            eventData.EventSource ??= eventSource;
 
             IDictionary<Type,IEventHandler[]> dict = GetHandlers(eventType);
             if (dict.Count == 0)
